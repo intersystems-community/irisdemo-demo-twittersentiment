@@ -1,0 +1,174 @@
+ROUTINE Test
+
+	// I was using this routine to explore the NLP API. It has no other use whatsoever.
+
+#Include DEMOMACROS
+	
+	
+	Try
+	{
+		#Dim oNLPSQLLister As %iKnow.Source.SQL.Lister
+		
+		Set tSC = $System.Status.OK()
+		
+		Kill ^IRISDemo.Data.TweetsD 
+		Kill ^IRISDemo.Data.TweetsI
+		/*
+		Set tSC=$System.iKnow.DropData("TwitterAnalytics",0,0)
+		$$$ThrowStatusExceptionIfError(tSC, "NLPDropDataException")
+		
+		&SQL(insert into IRISDemo_Data.Tweets (TwitterId, TwitterText, TwitterUser) values (1, 'It is not bad.', 'user0'))
+		$$$ThrowSQLExceptionIfError("PopulateTweetsException")
+
+		&SQL(insert into IRISDemo_Data.Tweets (TwitterId, TwitterText, TwitterUser) values (2, 'I hate this company. They treat you like shit.', 'user1'))
+		$$$ThrowSQLExceptionIfError("PopulateTweetsException")
+		
+		&SQL(insert into IRISDemo_Data.Tweets (TwitterId, TwitterText, TwitterUser) values (3, 'I disagree. I never had a problem with their customer services.', 'user2'))
+		$$$ThrowSQLExceptionIfError("PopulateTweetsException")
+		
+		&SQL(insert into IRISDemo_Data.Tweets (TwitterId, TwitterText, TwitterUser) values (4, 'I think they have very good products, but a horrible customer services.', 'user1'))
+		$$$ThrowSQLExceptionIfError("PopulateTweetsException")
+		
+		&SQL(insert into IRISDemo_Data.Tweets (TwitterId, TwitterText, TwitterUser) values (5, 'I can''t say I love this company either.', 'user3'))
+		$$$ThrowSQLExceptionIfError("PopulateTweetsException")
+		
+		&SQL(insert into IRISDemo_Data.Tweets (TwitterId, TwitterText, TwitterUser) values (6, 'I can''t say I hate it. But loving is a strech.', 'user5'))
+		$$$ThrowSQLExceptionIfError("PopulateTweetsException")
+		
+		&SQL(insert into IRISDemo_Data.Tweets (TwitterId, TwitterText, TwitterUser) values (7, 'I love this company! I wish they had a better customer services though.', 'user6'))
+		$$$ThrowSQLExceptionIfError("PopulateTweetsException")
+		*/
+		Set tDomainId = ##class(%SYSTEM.iKnow).GetDomainId("TwitterAnalytics")
+		If tDomainId="" $$$ThrowException("NLPDomainNotFoundException", "TwitterAnalytics") 
+		
+		// Preparing to call GetAttributes on SourceQAPI (Level 1)
+		Set oNLPSrcAttrStmt = ##class(%SQL.Statement).%New()
+		Set tSC = oNLPSrcAttrStmt.%PrepareClassQuery("%iKnow.Queries.SourceQAPI","GetAttributes")
+		$$$ThrowStatusExceptionIfError(tSC, "PrepareGetAttributesStmtException")
+
+		// Preparing to call GetAttributes on SentenceAPI (Level 2)
+		Set oNLPSentenceStmt = ##class(%SQL.Statement).%New()
+		Set tSC = oNLPSentenceStmt.%PrepareClassQuery("%iKnow.Queries.SentenceQAPI","GetAttributes")
+		$$$ThrowStatusExceptionIfError(tSC, "PrepareGetAttributesStmtException")
+
+		// Preparing to call GetAttributes on PathAPI (Level 3)
+		Set oNLPPathStmt = ##class(%SQL.Statement).%New()
+		Set tSC = oNLPPathStmt.%PrepareClassQuery("%iKnow.Queries.PathQAPI","GetAttributes")
+		$$$ThrowStatusExceptionIfError(tSC, "PrepareGetAttributesStmtException")
+
+		Set oExternalSourcesResult = ##class(%SQL.Statement).%ExecDirect(,"select NLPExternalSourceId from IRISDemo_Data.Tweets")
+		$$$ThrowSQLExceptionIfResultError(oExternalSourcesResult, "GetNLPSourceIdQueryException")
+				
+		While oExternalSourcesResult.%Next()
+		{ 
+			// Transform the External Source Id into a SourceId
+			Set tNLPExternalSourceId=oExternalSourcesResult.NLPExternalSourceId
+			Set tSourceId = ##class(%iKnow.Queries.SourceAPI).GetSourceId(tDomainId, tNLPExternalSourceId, .tSC)
+			$$$ThrowStatusExceptionIfError(tSC, "NLPGetSourceIdException")
+			
+			// Sources have sentences, let's get the sentences:			
+			Set tSC = ##class(%iKnow.Queries.SentenceAPI).GetBySource(.vSentences,tDomainId,tSourceId)
+						
+			Write !,"#####################################################",!
+			ZWrite vSentences
+			
+			Set iSentenceNum=""
+			For
+			{
+				Set iSentenceNum=$Order(vSentences(iSentenceNum))
+				Quit:iSentenceNum=""
+				
+				Set iPathId=$ListGet(vSentences(iSentenceNum),1)
+				
+				// Let's get the list of entities in this path in order to see if there is enough context to
+				// evaluate sentiment. Here, again, NLP is helping us by eliminating non-relevant words
+				Set lPathValues = ##class(%iKnow.Queries.PathAPI).GetValue(tDomainId, iPathId,,.tSC)
+				$$$ThrowStatusExceptionIfError(tSC, "GetValueException")
+
+				// We will not continue with this path if the number of relevant words is less than 3. 
+				Continue:$ListLength(lPathValues)<3
+
+				// Get Sentiment Attributes from PathQAPI
+				Set oNLPPathAttrResult = oNLPPathStmt.%Execute(tDomainId, iPathId)
+				$$$ThrowSQLExceptionIfResultError(oNLPSrcAttrResult, "ExecuteGetAttributesStmtException")
+				
+				Do oNLPPathAttrResult.%Display()
+				
+				Set tSC = ##class(%iKnow.Queries.PathAPI).GetAttributes(.tResult, tDomainId, iPathId)
+				$$$ThrowStatusExceptionIfError(tSC, "GetAttributesException")
+				Write !
+				ZWrite tResult
+				
+			}	
+			// Get Sentiment Attributes from SourceQAPI
+			/*
+			Set oNLPSrcAttrResult = oNLPSrcAttrStmt.%Execute(tDomainId, tSourceId)
+			$$$ThrowSQLExceptionIfResultError(oNLPSrcAttrResult, "ExecuteGetAttributesStmtException")
+			
+			Do oNLPSrcAttrResult.%Display()
+			*/
+
+ //			// Get Sentiment Attributes from SentenceQAPI
+ //			Set oNLPSrcAttrResult = oNLPSentenceStmt.%Execute(tDomainId, tSourceId)
+ //			$$$ThrowSQLExceptionIfResultError(oNLPSrcAttrResult, "ExecuteGetAttributesStmtException")
+ //			
+ //			Do oNLPSrcAttrResult.%Display()
+ //			
+ //			Set tSC = ##class(%iKnow.Queries.SentenceAPI).GetAttributes(.tResult, tDomainId, tSourceId)
+ //			$$$ThrowStatusExceptionIfError(tSC, "GetAttributesException")
+ //			Write !
+ //			ZWrite tResult
+						
+
+			
+			
+		}		
+
+	}
+	Catch (oException)
+	{
+		Set tSC = oException.AsStatus()
+	}
+	
+	Do $System.Status.DisplayError(tSC)
+	
+	Quit
+	
+Test2
+	Try
+	{
+		Set tSC = $System.Status.OK()
+		
+		Kill ^IRISDemo.Data.TweetsD 
+		Kill ^IRISDemo.Data.TweetsI
+		Set tSC=$System.iKnow.DropData("TwitterAnalytics",0,0)
+		$$$ThrowStatusExceptionIfError(tSC, "NLPDropDataException")
+
+		Do CreateTweet(1, "It is not bad.", "user0")
+		Do CreateTweet(2, "I hate this company. They treat you like shit.", "user1")
+		Do CreateTweet(3, "I disagree. I never had a problem with their customer services.", "user2")
+		Do CreateTweet(4, "I think they have very good products, but a horrible customer services.", "user1")
+		Do CreateTweet(5, "I can't say I love this company either.", "user3")
+		Do CreateTweet(6, "I can't say I hate it. But loving is an exaggeration.", "user5")
+		Do CreateTweet(7, "I love this company! I wish they had a better customer services though.", "user6")		
+	}
+	Catch (oException)
+	{
+		Set tSC = oException.AsStatus()
+	}
+	
+	Do $System.Status.DisplayError(tSC)
+	
+	Quit
+	
+CreateTweet(pTweetId, pTweetText, pTweetUser)
+{
+	#Dim tweet As IRISDemo.Data.Tweets
+	
+	Set tweet = ##class(IRISDemo.Data.Tweets).%New()
+	Set tweet.TwitterId=pTweetId
+	Set tweet.TwitterText=pTweetText
+	Set tweet.TwitterUser=pTweetUser
+	
+	Do tweet.EvaluateSentiment()
+}

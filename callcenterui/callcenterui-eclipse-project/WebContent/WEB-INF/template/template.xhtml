@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="layout.css" />
+	<h:outputStylesheet library="css" name="primeflex.css" />
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<p:growl id="messages" showDetail="true" sticky="true" />
+		
+		<div class="ui-g">
+			<div class="ui-g-12 header">
+				<ui:insert name="header">
+					<ui:include src="header.xhtml" />
+				</ui:insert>
+			</div>
+
+			<div class="ui-g-12">
+
+				<div class="ui-g-3">
+					<!-- p:panelMenu>
+						<p:submenu expanded="true" label="Twitter">
+							<p:menuitem value="Tickets" action="index" icon="fa fa-fw fa-user" />
+							<p:menuitem value="Posts" action="posts" icon="fa fa-fw fa-twitter" />
+							<p:menuitem value="Sentiments" action="sentiments" icon="fa fa-fw fa-heart" />
+						</p:submenu>
+						
+					</p:panelMenu-->
+				</div>
+
+				<div class="ui-g-7">
+					<ui:insert name="content">
+						<ui:include src="content.xhtml" />
+					</ui:insert>
+				</div>
+				
+				<div class="ui-g-2">
+					
+				</div>
+
+			</div>
+
+		</div>
+	</h:form>
+</h:body>
+</html>
