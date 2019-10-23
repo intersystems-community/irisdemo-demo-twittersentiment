@@ -6,9 +6,10 @@ services:
   # If there is a twitter with "bad sentiment" about our brand out there
   # we will open a ticket on the call center to reach out to that customer.
   twittersrv: 
-    image: ${DOCKER_REPOSITORY}:twittersentiment_twittersrv-version-${TAG}
+    image: ${DOCKER_REPOSITORY}:twittersrv-version-${TAG}
     hostname: twittersrv
     restart: on-failure
+    init: true
     cpu_percent: 25
     ports:
     - "9092:52773" # 52773 is the webserver/management portal port: http://localhost:9092/csp/sys/UtilHome.csp
@@ -17,9 +18,10 @@ services:
   # Here is where we are storing all twitts. Analysts will use this
   # data to further NLP processing, maitaining the sentiment dictionary, etc.
   twittersentiment:
-    image: ${DOCKER_REPOSITORY}:twittersentiment_twittersentiment-version-${TAG}
+    image: ${DOCKER_REPOSITORY}:twittersentiment-version-${TAG}
     hostname: twittersentiment
     restart: on-failure
+    init: true
     cpu_percent: 25
     ports:
     - "9094:52773" # 52773 is the webserver/management portal port: http://localhost:9094/csp/sys/UtilHome.csp
@@ -30,9 +32,10 @@ services:
   # open a ticket on the call center to reach out to that customer and
   # do damage control.
   callcenterdb:
-    image: ${DOCKER_REPOSITORY}:twittersentiment_callcenterdb-version-${TAG}
+    image: ${DOCKER_REPOSITORY}:callcenterdb-version-${TAG}
     hostname: callcenterdb
     restart: on-failure
+    init: true
     cpu_percent: 25
     ports:
     - "9096:52773" # 52773 is the webserver/management portal port: http://localhost:9096/csp/sys/UtilHome.csp
@@ -42,9 +45,10 @@ services:
   # It here where a call center employee will see its Workflow inbox
   # and see a task to call/mail someone about a twitter rant.
   callcenterui:
-    image: ${DOCKER_REPOSITORY}:twittersentiment_callcenterui-version-${TAG}
+    image: ${DOCKER_REPOSITORY}:callcenterui-version-${TAG}
     hostname: callcenterui
     restart: on-failure
+    init: true
     cpu_percent: 25
     ports:
     - "9090:8080"   # JBoss - Call Center App: http://localhost:9090/app/
