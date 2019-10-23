@@ -1,7 +1,7 @@
 version: '2.4'
 
 services:
-  # This is where the Twitter service is running, fetching twitts,
+  # This is where the Twitter service is running, fetching twitts, 
   # analyzing sentiment, and pushing the data to the twittersentiment.
   # If there is a twitter with "bad sentiment" about our brand out there
   # we will open a ticket on the call center to reach out to that customer.
