@@ -50,10 +50,9 @@ When starting, it is going to show you lots of messages from all the containers 
 
 When it is done, it will just hang there, without returning control to you. That is fine too. Just leave this window open. If you CTRL+C on this window, docker compose will stop all the containers (and stop the demo!).
 
-After all the containers have started, open the demo landing page on [http://localhost:52773/csp/appint/demo.csp](http://localhost:52773/csp/appint/demo.csp).
+After all the containers have started, open the demo landing page on [http://localhost:9092/csp/appint/demo.csp](http://localhost:52773/csp/appint/demo.csp).
 
-Use the username **SuperUser** and the password **sys**. This is just a demo that is running on your machine, so we are using a default password.
-
+Use the username **SuperUser** and the password **sys**. This is just a demo that is running on your machine, so we are using a default password. You will see the demo landing page. Everything that is purple on this screen is something you can click an open a specific screen of the demo. Click on the bottom/right button that reads **Show Instructions** to understand how to configure your Twitter credentials on the demo.
 
 # Architecture
 
