@@ -12,7 +12,7 @@ echo "   DOCKER_TAG     : $IMAGE_NAME"
 
 echo
 echo "### HOOK - building callcenter UI WAR file..."
-	docker run --rm -it \
+	docker run --rm \
 		-v ${PWD}/projects:/usr/projects \
 		--name mavenc intersystemsdc/irisdemo-base-mavenc:latest
 
