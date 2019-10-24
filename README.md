@@ -1,4 +1,4 @@
-# irisdemo-demo-twittersentiment
+# Twitter Sentiment Analysis with InterSystems IRIS NLP
 
 This demo shows how we can use IRIS Interoperability to stream tweets using the standard HTTP Streaming Protocol and the Twitter Streaming API. This Twitter API is different from the Search API because we can receive the tweets in real time. It is also different from the Firehose Streaming API because we are not receiving all the tweets but a fraction that will depend on the traffic. But for many applications such as sentiment analysis that is just fine.
 
@@ -28,13 +28,27 @@ Don't forget to click on the Instructions button at the landing page of the demo
 
 ## How to run the demo
 
-To just run the demo on your PC, make sure you have Docker installed on your machine. You can clone this repository to you local machine or just get the docker-compose.yml file. Then, on the folder where your docker-compose.yml file is, run the following command:
+To just run the demo on your PC, make sure you have Docker installed on your machine. You can quickly get it up and running with the folloing commands:
 
 ```bash
+wget https://raw.githubusercontent.com/intersystems-community/irisdemo-demo-twittersentiment/master/docker-compose.yml
+wget https://raw.githubusercontent.com/intersystems-community/irisdemo-demo-twittersentiment/master/.env
 docker-compose up
 ```
 
-That will trigger the download of the images that compose this demo and it will soon start all the containers. It is going to show you lots of messages from all the containers. That is fine. It will also hang there, without returning control to you. That is fine too. Just leave this window open. If you CTRL+C on this window, docker compose will stop all the containers.
+You can also clone this repository to you local machine to get the entire source code. You will need git installed and you would need to be on your git folder:
+
+```bash
+git clone https://github.com/intersystems-community/irisdemo-demo-twittersentiment
+cd irisdemo-demo-twittersentiment
+docker-compose up
+```
+
+Both techniques should work and should trigger the download of the images that compose this demo and it will soon start all the containers. 
+
+When starting, it is going to show you lots of messages from all the containers that are staring. That is fine. Don't worry.
+
+When it is done, it will just hang there, without returning control to you. That is fine too. Just leave this window open. If you CTRL+C on this window, docker compose will stop all the containers (and stop the demo!).
 
 After all the containers have started, open the demo landing page on [http://localhost:52773/csp/appint/demo.csp](http://localhost:52773/csp/appint/demo.csp).
 
