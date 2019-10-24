@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/template.xhtml">
+
+		<ui:define name="content">
+
+
+			<p:panel header="Call Center Tickets" style="margin-bottom:20px">
+
+
+
+				<div class="ui-fluid">
+
+					<p:dataTable id="tblTicket" selectionMode="single" var="ticket"
+						rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15"
+						value="#{callCenterController.ticketList}" reflow="true"
+						style="margin-top:20px" rowKey="#{ticket.id}">
+
+						<f:facet name="header">Call Center Ticket List</f:facet>
+
+						<p:ajax event="rowSelect"
+							listener="#{callCenterController.onRowSelect}" update="form" />
+
+						<p:column width="10%" headerText="Customer">
+							<h:outputText value="#{ticket.ticketUser}" />
+						</p:column>
+
+						<p:column width="10%" headerText="User Feedback">
+							<h:outputText value="#{ticket.ticketFeedback}" />
+						</p:column>
+
+						<p:column width="10%" headerText="Date">
+							<h:outputText value="#{ticket.ticketDate}" />
+						</p:column>
+
+						<p:column width="70%" headerText="Ticket Text">
+							<h:outputText value="#{ticket.ticketText}" />
+						</p:column>
+
+
+					</p:dataTable>
+
+
+					<p:panelGrid columns="4" layout="grid"
+						styleClass="ui-panelgrid-blank">
+						<p:commandButton value="New Ticket" icon="fa fa-fw fa-file-o"
+							action="#{callCenterController.reset}" update="form" />
+						<p:commandButton value="Save/Reply Ticket" icon="fa fa-fw fa-save"
+							action="#{callCenterController.merge}" update="form, tblTicket" />
+						<p:commandButton value="List Tickets" icon="fa fa-fw fa-list"
+							action="#{callCenterController.list}" update="form, tblTicket" />
+					</p:panelGrid>
+
+					<p:spacer height="10" />
+
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+						<p:outputLabel for="txtId" value="Ticket ID" />
+						<p:inputText id="txtId"
+							value="#{callCenterController.ticket.ticketID}" />
+
+						<p:outputLabel for="txtUser" value="Customer" />
+						<p:inputText id="txtUser"
+							value="#{callCenterController.ticket.ticketUser}" />
+
+						<p:outputLabel for="txtSentiment" value="Customer Feedback" />
+						<p:inputText id="txtSentiment"
+							value="#{callCenterController.ticket.ticketFeedback}" />
+
+						<p:outputLabel for="txtDate" value="Ticket Date" />
+						<p:calendar id="txtDate" showOn="button"
+							value="#{callCenterController.ticket.ticketDate}" />
+
+						<p:outputLabel for="txtPost" value="Ticket Text" />
+						<p:inputTextarea cols="30" rows="4" id="txtPost"
+							value="#{callCenterController.ticket.ticketText}" />
+						<p:outputLabel for="txtResponse" value="Ticket Reply" />
+						<p:inputTextarea cols="30" rows="4" id="txtResponse"
+							value="#{callCenterController.ticket.ticketResponse}" />
+						
+					</p:panelGrid>
+
+
+
+				</div>
+
+			</p:panel>
+
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>
