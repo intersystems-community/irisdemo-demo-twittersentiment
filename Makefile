@@ -9,7 +9,7 @@ build:
 	# Compiling source codes to generare war file.
 	docker run --rm -it \
 		-v ${PWD}/callcenterui/projects:/usr/projects \
-		--name mavenc intersystemsdc/irisdemo-base-mavenc:version-latest
+		--name mavenc intersystemsdc/irisdemo-base-mavenc:latest
 
 	docker build -t ${DOCKER_REPOSITORY}:callcenterui-version-${TAG} ./callcenterui/
 
