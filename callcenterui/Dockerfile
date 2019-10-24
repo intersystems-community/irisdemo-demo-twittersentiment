@@ -1,4 +1,4 @@
-FROM intersystemsdc/irisdemo-base-jboss:version-1.3
+FROM intersystemsdc/irisdemo-base-jboss:version-1.9.4
 LABEL maintainer="Amir Samary <amir.samary@intersystems.com>"
 
 # Uncomment when we have a war to add
