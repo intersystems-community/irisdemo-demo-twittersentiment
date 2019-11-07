@@ -8,25 +8,25 @@ echo "   COMMIT_MSG     : $COMMIT_MSG"
 echo "   DOCKER_REPO    : $DOCKER_REPO"
 echo "   DOCKERFILE_PATH: $DOCKERFILE_PATH"
 echo "   DOCKER_TAG     : $DOCKER_TAG"
-echo "   DOCKER_TAG     : $IMAGE_NAME"
+echo "   IMAGE_NAME     : $IMAGE_NAME"
 
 echo
 echo "### HOOK - building twittersrv..."
-docker build -t ${DOCKER_REPO}:twittersrv-${TAG} ./twittersrv/
+docker build -t ${DOCKER_REPO}:twittersrv-${DOCKER_TAG} ./twittersrv/
 
 echo
 echo "### HOOK - building twittersentiment..."
-docker build -t ${DOCKER_REPO}:twittersentiment-${TAG} ./twittersentiment/
+docker build -t ${DOCKER_REPO}:twittersentiment-${DOCKER_TAG} ./twittersentiment/
 
 echo
 echo "### HOOK - building callcenterdb..."
-docker build -t ${DOCKER_REPO}:callcenterdb-${TAG} ./callcenterdb/
+docker build -t ${DOCKER_REPO}:callcenterdb-${DOCKER_TAG} ./callcenterdb/
 
 echo
 echo "### HOOK - building callcenterui..."
 # Compiling source codes to generare war file.
-docker run --rm -it \
+docker run --rm \
     -v ./callcenterui/projects:/usr/projects \
     --name mavenc intersystemsdc/irisdemo-base-mavenc:latest
 
-docker build -t ${DOCKER_REPO}:callcenterui-${TAG} ./callcenterui/
+docker build -t ${DOCKER_REPO}:callcenterui-${DOCKER_TAG} ./callcenterui/
