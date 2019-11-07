@@ -1,0 +1,18 @@
+
+#!/bin/bash
+
+echo
+echo "### HOOK - Pushing twittersrv..."
+docker push ${DOCKER_REPO}:twittersrv-${TAG}
+
+echo
+echo "### HOOK - Pushing twittersentiment..."
+docker push ${DOCKER_REPO}:twittersentiment-${TAG}
+
+echo
+echo "### HOOK - Pushing callcenterdb..."
+docker push ${DOCKER_REPO}:callcenterdb-${TAG}
+
+echo
+echo "### HOOK - Pushing callcenterui..."
+docker push ${DOCKER_REPO}:callcenterui-${TAG}
