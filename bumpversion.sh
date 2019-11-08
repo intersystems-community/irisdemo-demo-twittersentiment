@@ -76,7 +76,7 @@ if [ -f VERSION ]; then
     #
     # Add files that were changed by the bumpversion.sh:
     #
-    git add CHANGELOG.md VERSION docker-compose.yml ./banking_trn_srv/Dockerfile
+    git add CHANGELOG.md VERSION docker-compose.yml
 
     git commit -m "Bump version to ${INPUT_STRING}."
     git tag -a -m "Tag version ${INPUT_STRING}." "v$INPUT_STRING"
