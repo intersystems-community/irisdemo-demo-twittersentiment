@@ -32,7 +32,6 @@ To just run the demo on your PC, make sure you have Docker installed on your mac
 
 ```bash
 wget https://raw.githubusercontent.com/intersystems-community/irisdemo-demo-twittersentiment/master/docker-compose.yml
-wget https://raw.githubusercontent.com/intersystems-community/irisdemo-demo-twittersentiment/master/.env
 docker-compose up
 ```
 
