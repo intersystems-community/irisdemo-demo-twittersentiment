@@ -1,15 +1,29 @@
 @ECHO OFF
 
-echo Updating sub modules...
-git submodule init
-git submodule update
+SET DOCKER_REPO=intersystemsdc/irisdemo-demo-twittersentiment
+set /p VERSION=<VERSION
 
 echo BUILDING...
 docker-compose stop
 docker-compose rm -f
 
-docker run --rm -it \
-    -v ./callcenterui/projects:/usr/projects \
+echo
+echo "### HOOK - building twittersrv..."
+docker build -t %DOCKER_REPO%:twittersrv-%VERSION% ./twittersrv/
+
+echo
+echo "### HOOK - building twittersentiment..."
+docker build -t %DOCKER_REPO%:twittersentiment-%VERSION% ./twittersentiment/
+
+echo
+echo "### HOOK - building callcenterdb..."
+docker build -t %DOCKER_REPO%:callcenterdb-%VERSION% ./callcenterdb/
+
+echo
+echo "### HOOK - building callcenterui..."
+# Compiling source codes to generare war file.
+docker run --rm \
+    -v .\callcenterui\projects:/usr/projects \
     --name mavenc intersystemsdc/irisdemo-base-mavenc:latest
 
-docker-compose build
+docker build -t %DOCKER_REPO%:callcenterui-%VERSION% ./callcenterui/
