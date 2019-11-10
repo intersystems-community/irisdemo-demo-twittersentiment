@@ -10,15 +10,15 @@ docker-compose rm -f
 
 echo
 echo "### HOOK - building twittersrv..."
-docker build -t %DOCKER_REPO%:twittersrv-%VERSION% ./twittersrv/
+docker build -t %DOCKER_REPO%:twittersrv-version-%VERSION% ./twittersrv/
 
 echo
 echo "### HOOK - building twittersentiment..."
-docker build -t %DOCKER_REPO%:twittersentiment-%VERSION% ./twittersentiment/
+docker build -t %DOCKER_REPO%:twittersentiment-version-%VERSION% ./twittersentiment/
 
 echo
 echo "### HOOK - building callcenterdb..."
-docker build -t %DOCKER_REPO%:callcenterdb-%VERSION% ./callcenterdb/
+docker build -t %DOCKER_REPO%:callcenterdb-version-%VERSION% ./callcenterdb/
 
 echo
 echo "### HOOK - building callcenterui..."
@@ -27,4 +27,4 @@ docker run --rm \
     -v %PWD%\callcenterui\projects:/usr/projects \
     --name mavenc intersystemsdc/irisdemo-base-mavenc:latest
 
-docker build -t %DOCKER_REPO%:callcenterui-%VERSION% ./callcenterui/
+docker build -t %DOCKER_REPO%:callcenterui-version-%VERSION% ./callcenterui/
