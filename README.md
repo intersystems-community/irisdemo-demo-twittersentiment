@@ -93,3 +93,7 @@ There are other IRIS demo applications that touch different subjects such as NLP
 # Report any Issues
 
 Please, report any issues on the [Issues section](https://github.com/intersystems-community/irisdemo-demo-twittersentiment/issues).
+
+# Troubleshooting
+
+If you are facing any type of problems, please check the [Troubleshooting](https://github.com/intersystems-community/irisdemo-base-troubleshooting/blob/master/README.md) document for guidance.
