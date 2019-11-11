@@ -10,6 +10,8 @@ The picture bellow shows the workflow:
 
 ![Demo Landing Page](https://raw.githubusercontent.com/intersystems-community/irisdemo-demo-twittersentiment/master/README.png?raw=true)
 
+You will also notice that this is also the demo's landing page and that there are buttons at the bottom of it. One of them says **Show Instructions**. Click on that button to see the next instructions on how to start receiving realtime tweets!
+
 ## Twitter Developer Account
 
 To run this demo you must have a [Twitter Developer account](https://developer.twitter.com/en/apps) and a twitter application created on twitter. The application you create on twitter will provide you with your Consumer API Keys and Access token & access token secret credentials. 
