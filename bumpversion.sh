@@ -59,9 +59,11 @@ if [ -f VERSION ]; then
     echo $INPUT_STRING > VERSION
 
     #
-    # Fix files that make reference to the new version
+    # Fix files that make reference to the new version. Only change versions of images
+    # belonging to this repository. References to other images such as Spark and Zeppelin 
+    # will be let alone.
     #
-    sed -i '' "s/version-[0-9][0-9.]*/version-$INPUT_STRING/g" ./docker-compose.yml
+    sed -E -i '' "s;(intersystemsdc/irisdemo-demo-fraudprevention:.+)-version-[0-9][0-9.]*;\1-version-$INPUT_STRING;g" ./docker-compose.yml
 
     echo "## $INPUT_STRING ($NOW)" > tmpfile
     git log --pretty=format:"  - %s" "v$BASE_STRING"...HEAD >> tmpfile
