@@ -31,9 +31,11 @@ Don't forget to click on the Instructions button at the landing page of the demo
 To just run the demo on your PC, make sure you have Docker installed on your machine. You can quickly get it up and running with the folloing commands:
 
 ```bash
-wget [https://raw.githubusercontent.com/intersystems-community/irisdemo-demo-twittersentiment/master/docker-compose.yml](https://raw.githubusercontent.com/intersystems-community/irisdemo-demo-twittersentiment/master/docker-compose.yml)
+wget https://raw.githubusercontent.com/intersystems-community/irisdemo-demo-twittersentiment/master/docker-compose.yml
 docker-compose up
 ```
+
+If you are using Windows, you can also right click on [this](https://raw.githubusercontent.com/intersystems-community/irisdemo-demo-twittersentiment/master/docker-compose.yml) link and chose *Save As...* from the context menu to save the file on your disk if you are using Windows.
 
 You can also clone this repository to you local machine to get the entire source code. You will need git installed and you would need to be on your git folder:
 
