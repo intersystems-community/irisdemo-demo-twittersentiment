@@ -92,6 +92,13 @@ There are other IRIS demo applications that touch different subjects such as NLP
 * [Fraud Prevention](https://github.com/intersystems-community/irisdemo-demo-fraudprevention) - Apply Machine Learning and Business Rules to prevent frauds in financial services transactions using IRIS.
 * [Twitter Sentiment Analysis](https://github.com/intersystems-community/irisdemo-demo-twittersentiment) - This demo.
 
+# Other Resources
+
+Here are additional resources related to this application:
+
+- [Video about How IRIS NLP works](https://www.youtube.com/watch?v=2pQur_PJn_w)
+- [Sentiment Analysis and Subjectivity](https://raw.githubusercontent.com/intersystems-community/irisdemo-demo-twittersentiment/master/resources/NLP-handbook-sentiment-analysis.pdf?raw=true)
+
 # Report any Issues
 
 Please, report any issues on the [Issues section](https://github.com/intersystems-community/irisdemo-demo-twittersentiment/issues).
