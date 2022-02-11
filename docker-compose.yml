@@ -36,7 +36,7 @@ services:
     init: true
     ports:
     - "9096:52773" # 52773 is the webserver/management portal port: http://localhost:9096/csp/sys/UtilHome.csp
-    - "9097:51773" # 51773 is the superserver default port
+    - "9097:1972" # 51773 is the superserver default port
 
   # This will be the call center UI, built on Java/JBoss
   # It here where a call center employee will see its Workflow inbox
@@ -51,7 +51,7 @@ services:
     - "9091:9990"   # JBoss Management portal: Username: admin, Password: Admin#1234
     environment:  # Only if you want to use JDBC with IRIS
     - IRIS_MASTER_HOST=callcenterdb # DNS based on the name of the service!
-    - IRIS_MASTER_PORT=51773        # IRIS, inside the "composition" network, is listening on this port
+    - IRIS_MASTER_PORT=1972        # IRIS, inside the "composition" network, is listening on this port
     - IRIS_MASTER_USERNAME=SuperUser 
     - IRIS_MASTER_PASSWORD=sys 
     - IRIS_MASTER_NAMESPACE=APP 
