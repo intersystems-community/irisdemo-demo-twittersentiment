@@ -6,7 +6,7 @@ services:
   # If there is a twitter with "bad sentiment" about our brand out there
   # we will open a ticket on the call center to reach out to that customer.
   twittersrv: 
-    image: intersystemsdc/irisdemo-demo-twittersentiment:twittersrv-version-1.8.1
+    image: intersystemsdc/irisdemo-demo-twittersentiment:twittersrv-version-1.8.2
     hostname: twittersrv
     restart: on-failure
     init: true
@@ -17,7 +17,7 @@ services:
   # Here is where we are storing all twitts. Analysts will use this
   # data to further NLP processing, maitaining the sentiment dictionary, etc.
   twittersentiment:
-    image: intersystemsdc/irisdemo-demo-twittersentiment:twittersentiment-version-1.8.1
+    image: intersystemsdc/irisdemo-demo-twittersentiment:twittersentiment-version-1.8.2
     hostname: twittersentiment
     restart: on-failure
     init: true
@@ -30,7 +30,7 @@ services:
   # open a ticket on the call center to reach out to that customer and
   # do damage control.
   callcenterdb:
-    image: intersystemsdc/irisdemo-demo-twittersentiment:callcenterdb-version-1.8.1
+    image: intersystemsdc/irisdemo-demo-twittersentiment:callcenterdb-version-1.8.2
     hostname: callcenterdb
     restart: on-failure
     init: true
@@ -42,7 +42,7 @@ services:
   # It here where a call center employee will see its Workflow inbox
   # and see a task to call/mail someone about a twitter rant.
   callcenterui:
-    image: intersystemsdc/irisdemo-demo-twittersentiment:callcenterui-version-1.8.1
+    image: intersystemsdc/irisdemo-demo-twittersentiment:callcenterui-version-1.8.2
     hostname: callcenterui
     restart: on-failure
     init: true
