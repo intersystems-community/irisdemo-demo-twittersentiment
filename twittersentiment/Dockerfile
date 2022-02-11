@@ -1,4 +1,4 @@
-FROM intersystemsdc/irisdemo-base-irisdb-community:version-1.9.3
+FROM intersystemsdc/irisdemo-base-irisdb-community:version-1.9.4
 LABEL maintainer="Amir Samary <amir.samary@intersystems.com>"
 
 # Name of the project folder ex.: my-atelier-project

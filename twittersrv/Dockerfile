@@ -1,4 +1,4 @@
-FROM intersystemsdc/irisdemo-base-irisint-community:version-1.10.3
+FROM intersystemsdc/irisdemo-base-irisint-community:version-1.10.4
 LABEL maintainer="Amir Samary <amir.samary@intersystems.com>"
 
 # Name of the project folder ex.: my-atelier-project

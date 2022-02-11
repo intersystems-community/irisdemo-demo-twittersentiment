@@ -1,3 +1,6 @@
+## 1.8.1 (February 10, 2022)
+
+
 ## 1.8.0 (January 25, 2022)
   - Bumping IRIS version to 2021.2.0.649.0
   - Adding reference to the Kafka demo
