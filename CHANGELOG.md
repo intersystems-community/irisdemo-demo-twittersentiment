@@ -1,5 +1,5 @@
 ## 1.8.1 (February 10, 2022)
-
+  - Bumping IRIS version to 2021.2.0.651.0. Bumping jboss container to use newest one with IRIS JDBC driver for IRIS 2021.2
 
 ## 1.8.0 (January 25, 2022)
   - Bumping IRIS version to 2021.2.0.649.0
